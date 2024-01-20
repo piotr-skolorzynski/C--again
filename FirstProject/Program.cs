@@ -7,48 +7,84 @@ namespace FirstProject // Note: actual namespace depends on the project name.
     {
         private static void Main(string[] args)
         {
-            string message1;
-            message1 = "some value";
+            int result;
+            int x = 10;
+            int y = 5;
 
-            string message2 = null;
+            //Kolejność działań matematycznych jest zachowana 
+            int value = 2 + 2 * 5; //12
+            Console.WriteLine("kolejność działań zachowana dla przykładu 2 + 2 * 5 = " + value);
 
-            string message3 = string.Empty; //reprezentuje wartość brak znaków
-            // string.Empty != null
+            result = (x + y);
+            Console.WriteLine("Additional Operator: x + y = " + result);
 
-            string text = "He sadi \"Hi\"";
-            //znak \ przed cudzysłowiem oznacza że chcemy żeby wyświetlono cudzysłów a nie żeby
-            // kompilator traktował go jako znak specjlany
+            result = (x - y);
+            Console.WriteLine("Substraction Operator: x - y = " + result);
 
-            string widowLocation = "c:\\windows";
-            //powyżej tak samo jesli chcemy żeby był wyświetlony znak \ to przed nim umieszczono
-            // \ jako znak specjalny
+            result = (x * y);
+            Console.WriteLine("Multiplication Operator: x * y = " + result);
 
-            //powyższy zapid jest upierdliwy więc stworzono stringi dosowe tzw verbatim string
-            string fontsFolder = @"c:\windows\fonts";
-            // jedynym wyjątkiem jest cudzysłów, dla niego nawet verbatim nie pomoże
+            result = (x / y);
+            Console.WriteLine("Division Operator: x / y = " + result);
 
-            //konkatenacja
-            //wykorzystanie metody concat, można dodać więcej argumentów, należy oddzielać je przecinkami
-            string concatenated = string.Concat(text, " to me");
+            result = (x % y);
+            Console.WriteLine("Modulo Operator: x % y = " + result);
 
-            // można to też robić poprzez używanie operatora +
-            string concatenated2 = text + " to " + "me";
+            int value1 = 10;
+            int value2 = 10;
 
-            //interpolacja stringów (coś podobnego do template string)
-            string interpolated  = $"{text} to me";
-            //należy jednak pamiętać że interpolowany string zajmuje nowe miejsce w pamięci więc wielokrotne interpolowanie 
-            // tworzy nowe zmienne i pożera pamięć.
+            Console.WriteLine("Pre-increment result:");
+            Console.WriteLine(++value1);
 
-            //dlatego wymyślono string buildera żeby dynamicznie powiększał wartość dla zmiennej a nie tworzył nowej
-            StringBuilder sb = new StringBuilder("This"); // teraz można powiększać stringa
-            sb.Append(" is");
-            sb.Append(" a");
-            sb.Append(" long");
-            sb.Append(" text");
+            Console.WriteLine("Post-increment result:");
+            Console.WriteLine(value2++);
+            Console.WriteLine(value2);
 
-            string result = sb.ToString();
-            Console.WriteLine("String builder result: " + result);
+            bool boolResult;
+            x = 2;
+            y = 10;
 
+            Console.WriteLine("x: " + x);
+            Console.WriteLine("y: " + y);
+
+            boolResult = (x == y);
+            Console.WriteLine("Equal to Operator: (x == y) = " + boolResult);
+
+            boolResult = (x > y);
+            Console.WriteLine("Greater than Operator: (x > y) = " + boolResult);
+
+            boolResult = (x < y);
+            Console.WriteLine("Less than Operator: (x == y) = " + boolResult);
+
+            boolResult = (x >= y);
+            Console.WriteLine("Greater than or Equal to Operator: (x >= y) = " + boolResult);
+
+            boolResult = (x <= y);
+            Console.WriteLine("Less than or Equal to Operator: (x <= y) = " + boolResult);
+
+            boolResult = (x != y);
+            Console.WriteLine("Not Equal to Operator: (x == y) = " + boolResult);
+
+            bool a = true;
+            bool b = false;
+
+            Console.WriteLine("a: " + a);
+            Console.WriteLine("b: " + b);
+            
+            boolResult = a && b;
+            Console.WriteLine("AND Operator: (a && b) = " + boolResult);
+
+            boolResult = (a || b);
+            Console.WriteLine("OR Operator: (a || b) = " + boolResult);
+
+            boolResult = (!a);
+            Console.WriteLine("NOT Operator: !a = " + boolResult);
+            
+            
+            int greaterNumber = x > y ? x : y;
+            Console.WriteLine("Ternary conditional operator: x > y ? x : y = " + greaterNumber);
+            
+            
             Console.ReadLine();
         }
     }
