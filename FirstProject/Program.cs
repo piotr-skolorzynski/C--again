@@ -1,28 +1,56 @@
 ﻿using System;
 
-namespace FirstProject // Note: actual namespace depends on the project name.
+namespace FirstProject
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
-            switch (DateTime.Now.DayOfWeek)
+            string[] cars = { "Volvo", "BMW", "Mazda" };
+
+            int i = 0;
+            while (i < cars.Length)
             {
-                case DayOfWeek.Monday:
-                    Console.WriteLine("It is Monday ;(");
+                Console.WriteLine(cars[i]);
+                if (cars[i] == "BMW")
+                {
+                    Console.WriteLine(cars[i]);
                     break;
-                case DayOfWeek.Friday:
-                    Console.WriteLine("It is a last day of work week :)");
-                    break;
-                case DayOfWeek.Saturday:
-                case DayOfWeek.Sunday:
-                    Console.WriteLine("It is a weekend");
-                    break;
-                default:
-                    Console.WriteLine("It is a middle of work week");
-                    break;
+                }
+                i++;
             }
 
+            Console.WriteLine("To exit, type 'x");
+
+            string userInput;
+
+            do
+            {
+                userInput = Console.ReadLine();
+                Console.WriteLine($"Echo: {userInput}");
+            } while (userInput != "x");
+
+            for (int j = 0; j < cars.Length; j++)
+            {
+                Console.WriteLine(cars[j]);
+
+                if (cars[i] == "BMW")
+                {
+                    Console.WriteLine("Bye");
+                    break;
+                }
+            }
+
+            foreach (string car in cars)
+            {
+                Console.WriteLine(car);
+
+                if (car == "BMW")
+                {
+                    Console.WriteLine("bye");
+                    break;
+                }
+            }
         }
     }
 }
