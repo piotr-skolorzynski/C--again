@@ -6,22 +6,21 @@ namespace FirstProject // Note: actual namespace depends on the project name.
     {
         private static void Main(string[] args)
         {
-            Console.Write("Year of birth? ");
-            string userInput = Console.ReadLine();
-
-            bool isOver18 = DateTime.Now.Date.Year - int.Parse(userInput) > 18; 
-
-            if (isOver18)
+            switch (DateTime.Now.DayOfWeek)
             {
-                Console.WriteLine("hello");
-            }
-            else if (DateTime.Now.DayOfWeek == DayOfWeek.Sunday)
-            {
-                Console.WriteLine("Oh well its Sunday");
-            }
-            else
-            {
-                Console.WriteLine("Access denied");
+                case DayOfWeek.Monday:
+                    Console.WriteLine("It is Monday ;(");
+                    break;
+                case DayOfWeek.Friday:
+                    Console.WriteLine("It is a last day of work week :)");
+                    break;
+                case DayOfWeek.Saturday:
+                case DayOfWeek.Sunday:
+                    Console.WriteLine("It is a weekend");
+                    break;
+                default:
+                    Console.WriteLine("It is a middle of work week");
+                    break;
             }
 
         }
