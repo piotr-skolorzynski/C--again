@@ -6,19 +6,23 @@ namespace FirstProject
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("What is your gender? 1 - Male, 2 - Female");
-            string userInput = Console.ReadLine();
+            /*
+                Jeżeli mamy sytuację że wyświetlamy jakąś wartość a może być że jeszcze ona nie została 
+                zadeklarowana to otrzymamy błąd. więc można zastosować np. flagę i ternary operator
 
-            Gender userGender = (Gender)Enum.Parse(typeof(Gender), userInput);
+                int favoriteNumber = 23;
+                bool favoriteNumberHasValue = false;
 
-            if (userGender == Gender.Male)
-            {
-                Console.WriteLine("Only women are allowed");
-            }
-            else
-            {
-                Console.WriteLine("Hi");
-            }
+                Console.WriteLine("Favorite number: " + (favoriteNumberHasValue ? favoriteNumber.ToString() : ""));
+
+                Żeby uniknąć takiego rozwlekłego kodu wymyślono nullable
+                można taką zmienną deklarować jako Nullable<int> lub krócej int?
+            */
+
+            int? favoriteNumber = 23;
+            // Console.WriteLine("Favorite number: " + (favoriteNumber != null ? favoriteNumber.ToString() : ""));
+            // lub
+            Console.WriteLine("Favorite number: " + (favoriteNumber.HasValue ? favoriteNumber.Value.ToString() : ""));
         }
     }
 }
