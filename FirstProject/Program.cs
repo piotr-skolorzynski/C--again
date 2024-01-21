@@ -6,50 +6,18 @@ namespace FirstProject
     {
         private static void Main(string[] args)
         {
-            string[] cars = { "Volvo", "BMW", "Mazda" };
+            Console.WriteLine("What is your gender? 1 - Male, 2 - Female");
+            string userInput = Console.ReadLine();
 
-            int i = 0;
-            while (i < cars.Length)
+            Gender userGender = (Gender)Enum.Parse(typeof(Gender), userInput);
+
+            if (userGender == Gender.Male)
             {
-                Console.WriteLine(cars[i]);
-                if (cars[i] == "BMW")
-                {
-                    Console.WriteLine(cars[i]);
-                    break;
-                }
-                i++;
+                Console.WriteLine("Only women are allowed");
             }
-
-            Console.WriteLine("To exit, type 'x");
-
-            string userInput;
-
-            do
+            else
             {
-                userInput = Console.ReadLine();
-                Console.WriteLine($"Echo: {userInput}");
-            } while (userInput != "x");
-
-            for (int j = 0; j < cars.Length; j++)
-            {
-                Console.WriteLine(cars[j]);
-
-                if (cars[i] == "BMW")
-                {
-                    Console.WriteLine("Bye");
-                    break;
-                }
-            }
-
-            foreach (string car in cars)
-            {
-                Console.WriteLine(car);
-
-                if (car == "BMW")
-                {
-                    Console.WriteLine("bye");
-                    break;
-                }
+                Console.WriteLine("Hi");
             }
         }
     }
