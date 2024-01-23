@@ -6,6 +6,43 @@ public class Person
     public string FirstName;
     public string LasName;
     private DateTime dateOfBirth;
+    private string contactNumber;
+
+    public DateTime DateOfBirth
+    {
+        get { return dateOfBirth; }
+        set 
+        {
+            if (dateOfBirth > DateTime.Now)
+            {
+                Console.WriteLine("Invalid date of birth");
+            }
+            else
+            {
+                dateOfBirth = value;
+            }
+        }
+    }
+
+    public string ContactNumber
+    {
+        get { return contactNumber; }
+        set 
+        { 
+            if (contactNumber.Length < 9)
+            {
+                Console.WriteLine("Invalid contact number");
+            } 
+            else 
+            {
+                contactNumber = value;
+            }
+        
+        }
+    }
+
+    //Jeśli właściwość nie ma złożonej logiki zapisu i odczytu to jej deklarację można uprościć
+    // public string ContactNumber {get; set;}
     public Person(string firstName, string lastName)
     {
         FirstName = firstName;
@@ -15,30 +52,11 @@ public class Person
     //żeby nie powielać kodu w kolejnym konstruktorze stosuje się zapis po nawiasie z parametrami
     public Person(DateTime dateOfBirth, string firstName, string lastName): this(firstName, lastName)
     {
-        SetDateOfBirth(dateOfBirth);
+        DateOfBirth = dateOfBirth;
         Console.WriteLine("Constructor2");
     }
-    //Poniżej setter i getter dla prywatnego pola dateOfBirth
-    public void SetDateOfBirth(DateTime date)
-    {
-        if (dateOfBirth > DateTime.Now)
-        {
-            Console.WriteLine("Invalid date of birth");
-        }
-        else
-        {
-            dateOfBirth = date;
-        }
-    } 
-    // public DateTime getDateOfBirth() 
-    // {
-    //     return dateOfBirth;
-    // }
-    /* od wersji c# ver 6 dla powyżeszej metody wprowadzono coś takiego jak
-       expression value */
-    public DateTime GetDateOfBirth() => dateOfBirth;
     public void SayHi()
     {
-        Console.WriteLine($"Hi, I am {FirstName}, {GetDateOfBirth()}");
+        Console.WriteLine($"Hi, I am {FirstName}, {DateOfBirth}");
     }
 }
