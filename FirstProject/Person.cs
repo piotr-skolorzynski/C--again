@@ -5,6 +5,7 @@ public class Person
 {
     public string FirstName;
     public string LasName;
+    public static int Count = 0;
     private DateTime dateOfBirth;
     private string contactNumber;
 
@@ -29,7 +30,7 @@ public class Person
         get { return contactNumber; }
         set 
         { 
-            if (contactNumber.Length < 9)
+            if (value.Length < 9)
             {
                 Console.WriteLine("Invalid contact number");
             } 
@@ -47,6 +48,7 @@ public class Person
     {
         FirstName = firstName;
         LasName = lastName;
+        Count++;
         Console.WriteLine("Constructor1");
     }
     //żeby nie powielać kodu w kolejnym konstruktorze stosuje się zapis po nawiasie z parametrami

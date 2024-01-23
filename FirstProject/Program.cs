@@ -16,6 +16,8 @@ namespace FirstProject
 
             Person john = new Person(new DateTime(1986, 12, 5), "John", "Doe");
             john.SayHi();
+
+            Console.WriteLine($"Objects of Person type count: { Person.Count }");
         }
     }
 }
