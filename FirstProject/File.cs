@@ -1,13 +1,15 @@
 ﻿using System;
 
 namespace FirstProject;
-public abstract class File
+public interface IFile
 {
-    public string FileName { get; set; }
-    public int Size { get; set; }
-    public DateTime CreatedOn { get; set; }
+    //usunąłem public i dla metody Compress również abstract 
+    //ponieważ wszystkie pola w interfejsach są public i abstract domyślnie
+    string FileName { get; set; }
+    int Size { get; set; }
+    DateTime CreatedOn { get; set; }
 
     // narzuca każdej dziedziczącej klasie konieczność
     // implementacji metody Commpress. Mogą różnić się w mięsku. Nie ma to znaczenia
-    public abstract void Compress();
+    void Compress();
 }
