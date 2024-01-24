@@ -1,24 +1,19 @@
-﻿using System;
-
-namespace FirstProject
+﻿namespace FirstProject
 {
     internal class Program
     {
         private static void Main(string[] args)
         {
-           ExcelFile excelFile = new ExcelFile();
-           
-           excelFile.CreatedOn = DateTime.Now;
-           excelFile.FileName = "excel-file";
-           
-           excelFile.GenerateReport();
+           Shape[] shapes = { new Circle(), new Rectangle(), new Triangle() };
 
-           WordDocumentFile wordDocumentFile = new WordDocumentFile();
-        
-           wordDocumentFile.CreatedOn = DateTime.Now;
-           wordDocumentFile.FileName = "word-file";
-           
-           wordDocumentFile.Print();
+           foreach (Shape shape in shapes)
+           {
+            shape.Draw();
+           }
         }
+
+        //efektem pętli będzie Drawing circle, Drawing rectangle, Drawing Triangle mimo tego że shape
+        //jest zadeklarowany jako typ Shape a nie poszczególne typy pochodne
+        //takie zachowanie nazywa się polimorficznym
     }
 }
