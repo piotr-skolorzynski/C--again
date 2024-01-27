@@ -1,55 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstProject
 {
     internal class Program
     {
-        static void DisplayElements(List<int> list)
+      static List<Person> GetEmployees()
+      {
+        List<Person> employees = new List<Person>()
         {
-          Console.WriteLine("** List **");
-          foreach(int item in list)
-          {
-          Console.Write($"{item}, ");
-          }
-          Console.WriteLine();
-        }
-        private static void Main(string[] args)
+          new Person(new DateTime(1990, 2, 2), "Bill", "Wick"),
+          new Person(new DateTime(1995, 6, 3), "John", "Wick"),
+          new Person(new DateTime(1996, 4, 3), "Bob", "Wick"),
+          new Person(new DateTime(2001, 2, 2), "Bill", "Smith"),
+          new Person(new DateTime(2000, 2, 2), "John", "Smith"),
+          new Person(new DateTime(2005, 2, 2), "Bob", "Smith"),
+          new Person(new DateTime(2003, 2, 2), "Ed", "Smith"),
+        };
+
+        return employees;
+      }
+
+      private static void Main(string[] args)
+      {
+        List<Person> employees = GetEmployees();
+        //predykat do wyselekcjonowania pracowników w metodzie where
+        bool EmployeeIsYoung(Person employee)
         {
-          //deklaracja listy z deklaracją początkowych wartości
-          List<int> intList = new List<int>() { 6, 1, 20 };
-          DisplayElements(intList); //wyświetlanie listy
-
-          Console.WriteLine("New element: ");
-          string userInput = Console.ReadLine();
-          int intValue = int.Parse(userInput);
-          //dodawanie elementów do listy
-          intList.Add(intValue);
-          DisplayElements(intList);
-
-          //sortowanie listy
-          intList.Sort();
-          Console.WriteLine("Sorted list: ");
-          DisplayElements(intList);
-
-          //sposoby uswania elementów z listy
-          List<int> intList1 = new List<int>() { 6, 1, 20, 3, 45, 60, 100, 2 };
-          intList1.RemoveAt(2); //nr indexu -> usunie wartość 20
-
-          bool IsGreaterThan5(int x)
-          {
-            return x > 5;
-          }
-
-          List<int> intList2 = new List<int> { 6, 1, 20, 3, 45, 60, 100, 2 };
-          intList2.RemoveAll(IsGreaterThan5); //przekazuje warunek po spełnieniu którego należy usunąć element / elementy
-
-          List<int> intList3 = new List<int> { 1, 2, 1 };
-          intList3.Remove(1); //usuwa pierwsze wystąpienie określonej wartości.
-
-          List<int> intList4 = new List<int> { 6, 1, 20, 3, 45, 60, 100, 2 };
-          intList4.RemoveRange(2, 3); //Usuwa elementy w zakresie indexu początkowego oraz liczby elementów do usunięcia
-          // czyli tutaj zacznij od wartości na pozycji 2 czyli liczby 20 i usuń 3 kolejne liczby czyli 20, 3 oraz 45
+          return employee.DateOfBirth > new DateTime(2000, 1, 1);
         }
+        List<Person> youngEmployees = employees.Where(EmployeeIsYoung).ToList(); //zwraca nową listę z wyselekcjonowanych pracowników
+        //predykat do wyszukania pracownika o imieniu Bob
+        bool EmployeeIsBob(Person employee)
+        {
+          return employee.FirstName == "Bob";
+        }
+        Person bob = youngEmployees.FirstOrDefault(EmployeeIsBob);
+        if (bob != null)
+        {
+          bob.SayHi();
+        }
+        else
+        {
+          Console.WriteLine("Bob not found");
+        }
+
+      }
     }
 }
