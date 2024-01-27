@@ -1,42 +1,55 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FirstProject
 {
     internal class Program
     {
-      static List<Person> GetEmployees()
+      static Dictionary<string, Currency> GetCurrencies()
       {
-        List<Person> employees = new List<Person>()
+        return new Dictionary<string, Currency>
         {
-          new Person(new DateTime(1990, 2, 2), "Bill", "Wick"),
-          new Person(new DateTime(1995, 6, 3), "John", "Wick"),
-          new Person(new DateTime(1996, 4, 3), "Bob", "Wick"),
-          new Person(new DateTime(2001, 2, 2), "Bill", "Smith"),
-          new Person(new DateTime(2000, 2, 2), "John", "Smith"),
-          new Person(new DateTime(2005, 2, 2), "Bob", "Smith"),
-          new Person(new DateTime(2003, 2, 2), "Ed", "Smith"),
-        };
+          { "usd", new Currency("usd", "United States Dollar", 1)},
+          { "eur", new Currency("eur", "Euro", 0.83975)},
+          { "gbp", new Currency("gbp", "British Pound", 0.74771)},
+          { "cad", new Currency("cad", "Canadian Dollar", 1.30724)},
+          { "inr", new Currency("inr", "Indian Rupee", 73.04)},
+          { "mxn", new Currency("mxn", "Mexican Peso", 21.7571)},
 
-        return employees;
+        };
       }
 
       private static void Main(string[] args)
       {
-        List<Person> employees = GetEmployees();
-        List<Person> youngEmployees = employees.Where(e => e.DateOfBirth > new DateTime(2000, 1, 1)).ToList(); //zwraca nową listę z wyselekcjonowanych pracowników
+        Dictionary<string, Currency> currencies = GetCurrencies();
+        Console.WriteLine("Check the rate for: ");
+        string userInput = Console.ReadLine();
 
-        Person bob = youngEmployees.FirstOrDefault(e => e.FirstName == "Bob");
-        if (bob != null)
+        // //pobieranie wartości ze słownika
+        // Currency selectedCurrency = currencies[userInput];
+        //żeby się zabezpieczyć przed sytuacją że w słowniku nie ma wpisanej przez użytkownika wartości
+        //można skorzystać z metody TryGetValue dla słownika
+        Currency selectedCurrency = null;
+        if (currencies.TryGetValue(userInput, out selectedCurrency)) 
         {
-          bob.SayHi();
+          Console.WriteLine($"Rate for USD to {selectedCurrency.FullName} is {selectedCurrency.Rate}");
         }
-        else
+        else 
         {
-          Console.WriteLine("Bob not found");
+          Console.WriteLine("Currency not found");
         }
 
+        //usuwanie elementu ze słownika
+        currencies.Remove("usd");
+
+        //dodawanie elementów do słownika (klucz, wartość)
+        currencies.Add("pln", new Currency("pln", "Polski Nowy", 4.5));
+
+        //Jeżeli będę chciał dodać element do słownika i klucz będzie się powtarzał to 
+        // otrzymamy błąd Dlatego bezpieczniejszą metodą dodania klucza jest użycie metody TryAdd. Przesyła się tak samo 
+        // oba argumenty klucz - wartość ale ponadto sama metoda zwraca wartość logiczną czy udało się dodać element 
+        // do słownika
+        currencies.TryAdd("usd", new Currency("usd", "Dollar", 1));
       }
     }
 }
