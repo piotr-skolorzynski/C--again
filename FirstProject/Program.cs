@@ -25,18 +25,9 @@ namespace FirstProject
       private static void Main(string[] args)
       {
         List<Person> employees = GetEmployees();
-        //predykat do wyselekcjonowania pracowników w metodzie where
-        bool EmployeeIsYoung(Person employee)
-        {
-          return employee.DateOfBirth > new DateTime(2000, 1, 1);
-        }
-        List<Person> youngEmployees = employees.Where(EmployeeIsYoung).ToList(); //zwraca nową listę z wyselekcjonowanych pracowników
-        //predykat do wyszukania pracownika o imieniu Bob
-        bool EmployeeIsBob(Person employee)
-        {
-          return employee.FirstName == "Bob";
-        }
-        Person bob = youngEmployees.FirstOrDefault(EmployeeIsBob);
+        List<Person> youngEmployees = employees.Where(e => e.DateOfBirth > new DateTime(2000, 1, 1)).ToList(); //zwraca nową listę z wyselekcjonowanych pracowników
+
+        Person bob = youngEmployees.FirstOrDefault(e => e.FirstName == "Bob");
         if (bob != null)
         {
           bob.SayHi();
