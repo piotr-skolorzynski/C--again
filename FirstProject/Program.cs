@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 namespace FirstProject
@@ -8,35 +10,31 @@ namespace FirstProject
     {
       private static void Main(string[] args)
       {
-          var player = new Player()
-          {
-            Name = "Mario",
-            Level = 1,
-            HealthPoints = 100,
-            Statistics = new List<Statistics>()
-            {
-              new Statistics()
-              {
-                Name = "Strength",
-                Points = 10
-              },
-              new Statistics()
-              {
-                Name = "Intelligance",
-                Points = 10
-              }
-            }
-          };
-          player.Level++;
-          //use method Newtonsoft.Json nuget to serialize to JSON 
-          string playerSerialized = JsonConvert.SerializeObject(player);
-          //save JSON to the file
-          File.WriteAllText(@"d:\Repos\26. C# basics\FirstProject\playerSerialized.json", playerSerialized);
+        var path = @"d:\Repos\26. C# basics\FirstProject\playerSerialized.json";
 
-          //Wczytywanie pliku JSON
-          string playerFromJson = File.ReadAllText(@"d:\Repos\26. C# basics\FirstProject\playerSerialized.json");
-          //deserializacja
-          Player newPlayer = JsonConvert.DeserializeObject<Player>(playerFromJson);
+        //załóżmy że mamy bardzo prosty program, który wykorzystuje klasę FileStream 
+        // do czytania pracy z plikiem i tworzymy metodę do czytania i zapisu.
+        //praca z plikiem ma to do sibie że jak otworzymy go w jednej metodzie i nie zamkniemy 
+        // to inna metoda nie może z nim pracować
+        //więc jeśli pracujemy z plikiem i np. pojawi się wyjątek to może okazać się że nie zamknięmy pliku
+        // żeby zapobiec temy kod metody można zamknąć w bloku try -> catch -> finally gdzie w finally zawsze 
+        // zamykamy plik
+        // var readFileStream = new FileStream(path, FileMode.Open);
+        // try
+        // {
+        //   throw new Exception();
+        // }
+        // finally
+        // {
+        //   readFileStream.Close();
+        // }
+        //Microsoft stworzył rozwiązanie, które robi to za nas automatycznie
+        // w tym celu używa się wyrażenia using
+        using (var readFileStream = new FileStream(path, FileMode.Open))
+        {
+          throw new Exception();
+        }
+        //using można użyć dla każdej klasy, która implementuje interfejs IDisposable
       }
     }
 }
