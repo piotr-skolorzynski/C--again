@@ -18,7 +18,44 @@ namespace FirstProject
           var googleApps = LoadGoogleAps(csvPath);
 
         //   Display(googleApps);
-        GetData(googleApps);
+        // GetData(googleApps);
+        ProjectData(googleApps);
+      }
+
+      static void ProjectData(IEnumerable<GoogleApp> googleApps) 
+      {
+        var highRatedBeautyApps = googleApps.Where(app => app.Rating > 4.6 && app.Category == Category.BEAUTY);
+        
+        //Choose only names
+        // var highRatedBeautyAppsNames = highRatedBeautyApps.Select(app => app.Name);
+        // Console.WriteLine(string.Join(", ", highRatedBeautyAppsNames));
+
+        // var dtos = highRatedBeautyApps.Select(app => new GoogleAppDto()
+        // {
+        //     Name = app.Name,
+        //     Reviews = app.Reviews
+        // });
+
+        // foreach (var dto in dtos) 
+        // {
+        //     Console.WriteLine($"{dto.Name}: {dto.Reviews}");
+        // }
+
+        // //selects and flatens
+        // var genres = highRatedBeautyApps.SelectMany(app => app.Genres);
+        // Console.WriteLine(string.Join(":", genres));
+
+        //annonymous data type
+        var annonymousDtos = highRatedBeautyApps.Select(app => new 
+        {
+            Name = app.Name,
+            Reviews = app.Reviews
+        });
+
+        foreach (var dto in annonymousDtos)
+        {
+            Console.WriteLine($"{dto.Name}: ${dto.Reviews}");
+        }
       }
 
       static void GetData(IEnumerable<GoogleApp> googleApps)
