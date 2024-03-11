@@ -19,7 +19,23 @@ namespace FirstProject
 
         //   Display(googleApps);
         // GetData(googleApps);
-        ProjectData(googleApps);
+        // ProjectData(googleApps);
+        DivideData(googleApps);
+      }
+
+      static void DivideData(IEnumerable<GoogleApp> googleApps)
+      {
+        var highRatedBeautyApps = googleApps.Where(app => app.Rating > 4.4 && app.Category == Category.BEAUTY);
+
+        // var first5HighRatedBeautyApps = highRatedBeautyApps.Take(5);
+        // var highRatedBeautyAppsWithHighReviews = highRatedBeautyApps.TakeWhile(app => app.Reviews >= 1000);
+        // Display(highRatedBeautyAppsWithHighReviews);
+
+        var dataAfterSkipFirts5Apps = googleApps.Skip(5);
+        //SkipLast
+        //SkipWhile
+        //similar to Take
+
       }
 
       static void ProjectData(IEnumerable<GoogleApp> googleApps) 
