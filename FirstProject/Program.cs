@@ -21,7 +21,33 @@ namespace FirstProject
         // GetData(googleApps);
         // ProjectData(googleApps);
         // DivideData(googleApps);
-        OrderData(googleApps);
+        // OrderData(googleApps);
+        DataSetOperation(googleApps);
+      }
+
+      static void DataSetOperation(IEnumerable<GoogleApp> googleApps) 
+      {
+        var paidAppsCategories = googleApps.Where((app) => app.Type == Type.Paid)
+              .Select(a => a.Category).Distinct(); //Distinct works like in JS Array.from(new Set([array with many values])) to set array of unique values
+
+        // Console.WriteLine($"Paid apps categories: {string.Join(", ", paidAppsCategories)}");
+
+        var setA = googleApps.Where(a => a.Rating > 4.7 && a.Type == Type.Paid && a.Reviews > 1000);
+        var setB = googleApps.Where(a => a.Name.Contains("Pro") && a.Rating > 4.6 && a.Reviews > 10000);
+
+        // Display(setA);
+        // Console.WriteLine("*************");
+        // Display(setB);
+
+        // var appsUnion = setA.Union(setB);
+        // Display(appsUnion);
+
+        // var appsIntersect = setA.Intersect(setB);
+        // Display(appsIntersect);
+
+        var appsExcept = setA.Except(setB);
+        Display(appsExcept);
+
       }
 
       static void OrderData(IEnumerable<GoogleApp> googleApps)
