@@ -22,7 +22,25 @@ namespace FirstProject
         // ProjectData(googleApps);
         // DivideData(googleApps);
         // OrderData(googleApps);
-        DataSetOperation(googleApps);
+        // DataSetOperation(googleApps);
+        DataVerification(googleApps);
+      }
+
+      static void DataVerification(IEnumerable<GoogleApp> googleApps)
+      {
+        var wheatherApps = googleApps.Where(a => a.Category == Category.WEATHER);
+
+        var allOperatorResult = wheatherApps.All(a => a.Reviews > 10);
+        Console.WriteLine($"allOperatorResult {allOperatorResult}");
+
+        var allOperatorResult2 = wheatherApps.All(a => a.Reviews > 20);
+        Console.WriteLine($"allOperatorResult2 {allOperatorResult2}");
+
+        var anyOperatorResult = wheatherApps.Any(a => a.Reviews > 2_000_000);
+        Console.WriteLine($"anyOperatorResult {anyOperatorResult}");
+
+        var anyOperatorResult2 = wheatherApps.Any(a => a.Reviews > 3_000_000);
+        Console.WriteLine($"anyOperatorResult {anyOperatorResult2}");
       }
 
       static void DataSetOperation(IEnumerable<GoogleApp> googleApps) 
