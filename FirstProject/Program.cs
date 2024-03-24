@@ -30,32 +30,28 @@ namespace FirstProject
       static void GroupData(IEnumerable<GoogleApp> googleApps)
       {
         //grouping in more complex way
-        var categoryGroup = googleApps.GroupBy(e => new { e.Category, e.Type });
+        var categoryGroup = googleApps.GroupBy(e => e.Category);
         
         foreach (var group in categoryGroup)
         {
-          var apps = group.ToList();
-          Console.WriteLine($"Displaying elements for group {group.Key.Category}, {group.Key.Type}");
-          Display(apps);
+          //average value
+          var averageReviews = group.Average(g => g.Reviews);
+          //min
+          var minReviews = group.Min(g => g.Reviews);
+          //max
+          var maxReviews = group.Max(g => g.Reviews);
+          //sum
+          var reviewsCount = group.Sum(g => g.Reviews);
+          //flag if group has apps with min rating 3.0
+          var allAppsFromGroupHaveRatingOfThree = group.All(a => a.Rating > 3.0);
+          Console.WriteLine($"Category: {group.Key}");
+          Console.WriteLine($"averageReviews: {averageReviews}");
+          Console.WriteLine($"minReviews: {minReviews}");
+          Console.WriteLine($"maxReviews: {maxReviews}");
+          Console.WriteLine($"reviewsCount: {reviewsCount}");
+          Console.WriteLine($"allAppsFromGroupHaveRatingOfThree: {allAppsFromGroupHaveRatingOfThree}");
+          Console.WriteLine("***************");
         }
-       
-        //group elements by category
-        // var categoryGroup = googleApps.GroupBy(e => e.Category);
-
-        // foreach (var group in categoryGroup)
-        // {
-        //   var apps = group.ToList();
-        //   Console.WriteLine($"Displaying elements for group {group.Key}");
-        //   Display(apps);
-        // }
-
-        //how to choose first group with key name ART_AND_DESIGN
-        // var artAndDesignGroup = categoryGroup.First(g => g.Key == Category.ART_AND_DESIGN);
-        // change group in a List
-        // var apps = artAndDesignGroup.Select(e => e); // first solution
-        // var apps = artAndDesignGroup.ToList(); // second one
-        // Console.WriteLine($"Displaying elements for group {artAndDesignGroup.Key}");
-        // Display(apps);
       }
 
       static void DataVerification(IEnumerable<GoogleApp> googleApps)
