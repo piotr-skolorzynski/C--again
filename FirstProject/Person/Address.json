@@ -1,0 +1,26 @@
+[
+  {
+    "Id": 1,
+    "PersonId": 1,
+    "Street": "Stree1",
+    "City": "City1"
+  },
+  {
+    "Id": 2,
+    "PersonId": 2,
+    "Street": "Stree2",
+    "City": "City2"
+  },
+  {
+    "Id": 3,
+    "PersonId": 4,
+    "Street": "Stree4a",
+    "City": "City3"
+  },
+  {
+    "Id": 4,
+    "PersonId": 4,
+    "Street": "Stree4b",
+    "City": "City4"
+  }
+]
