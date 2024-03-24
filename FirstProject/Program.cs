@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using CsvHelper;
-using CsvHelper.Configuration;
 using Newtonsoft.Json;
 
 namespace FirstProject
@@ -18,14 +13,18 @@ namespace FirstProject
         var people = LoadPeople();
         var addresses = LoadAdresses();
 
-        var joinedData = people.Join(addresses,
+        var joinedData = people.GroupJoin(addresses,
             p => p.Id,
             a => a.PersonId,
-            (person, address) => new { person.Name, address.Street, address.City });
+            (person, addresses) => new { person.Name, Addresses = addresses });
 
         foreach (var element in joinedData)
         {
-          Console.WriteLine($"Name: {element.Name}, address: {element.City}, {element.Street}");
+          Console.WriteLine($"Name: {element.Name}");
+          foreach (var address in element.Addresses)
+          {
+            Console.WriteLine($"\t City: {address.City}, street: {address.Street}");
+          }
         }
       }
 
