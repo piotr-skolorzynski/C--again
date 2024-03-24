@@ -17,13 +17,45 @@ namespace FirstProject
           string csvPath = @"D:\Repos\26. C# basics\FirstProject\googleplaystore.csv";
           var googleApps = LoadGoogleAps(csvPath);
 
-        //   Display(googleApps);
+        // Display(googleApps);
         // GetData(googleApps);
         // ProjectData(googleApps);
         // DivideData(googleApps);
         // OrderData(googleApps);
         // DataSetOperation(googleApps);
-        DataVerification(googleApps);
+        // DataVerification(googleApps);
+        GroupData(googleApps);
+      }
+
+      static void GroupData(IEnumerable<GoogleApp> googleApps)
+      {
+        //grouping in more complex way
+        var categoryGroup = googleApps.GroupBy(e => new { e.Category, e.Type });
+        
+        foreach (var group in categoryGroup)
+        {
+          var apps = group.ToList();
+          Console.WriteLine($"Displaying elements for group {group.Key.Category}, {group.Key.Type}");
+          Display(apps);
+        }
+       
+        //group elements by category
+        // var categoryGroup = googleApps.GroupBy(e => e.Category);
+
+        // foreach (var group in categoryGroup)
+        // {
+        //   var apps = group.ToList();
+        //   Console.WriteLine($"Displaying elements for group {group.Key}");
+        //   Display(apps);
+        // }
+
+        //how to choose first group with key name ART_AND_DESIGN
+        // var artAndDesignGroup = categoryGroup.First(g => g.Key == Category.ART_AND_DESIGN);
+        // change group in a List
+        // var apps = artAndDesignGroup.Select(e => e); // first solution
+        // var apps = artAndDesignGroup.ToList(); // second one
+        // Console.WriteLine($"Displaying elements for group {artAndDesignGroup.Key}");
+        // Display(apps);
       }
 
       static void DataVerification(IEnumerable<GoogleApp> googleApps)
