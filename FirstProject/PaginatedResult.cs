@@ -4,7 +4,9 @@ using System.Collections.Generic;
 namespace FirstProject;
 public class Reastaurant {}
 
-public class Users {}
+public class User {
+    public string Name { get; set; }
+}
 
 public class PaginatedResult<T>
 {
