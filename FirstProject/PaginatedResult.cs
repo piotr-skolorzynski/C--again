@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 
 namespace FirstProject;
-public class Reastaurant {}
 
-public class User {
+public interface IEntity 
+{
+    int Id { get; set; }
+}
+public class Reastaurant : IEntity 
+{
+    public int Id { get; set; }
+}
+
+public class User : IEntity
+{
     public string Name { get; set; }
+    public int Id { get; set; }
 }
 
 public class PaginatedResult<T>

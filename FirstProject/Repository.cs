@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FirstProject;
-public class Repository<T>
+public class Repository<T> where T : IEntity, new()
 {
     private List<T> data = new List<T>();
 
@@ -10,8 +11,19 @@ public class Repository<T>
     {
         if (element != null)
         {
+            //now we have possibility to use constructor
+            var newElement = new T();
+            newElement.Id = 23;
+
+            //T must implement IEntity so it has property Id available
+            Console.WriteLine(element.Id);
             data.Add(element);
         } 
+    }
+
+    public T GetElementById(int id)
+    {
+        return data.FirstOrDefault(e => e.Id == id);
     }
 
     public T GetElement(int index)
@@ -29,7 +41,9 @@ public class Repository<T>
     }
 }
 
-public class Repository<TKey, TValue>
+public class Repository<TKey, TValue> 
+    where TKey : class 
+    where TValue : new()
 {
     private Dictionary<TKey, TValue> data = new Dictionary<TKey, TValue>();
 
