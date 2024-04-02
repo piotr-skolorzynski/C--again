@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FirstProject
 {
@@ -7,24 +11,34 @@ namespace FirstProject
   {
       static void Main(string[] args)
       {
-        // var restaurants = new List<Reastaurant>();
 
-        // var results = new PaginatedResult<Reastaurant>();
+      }
 
-        // results.Results = restaurants;
+      private async void Read_Files_Async_Handler(object sender, RoutedEventArgs e)
+      {
+        ResultLabel.Content = "Reading started:";
+        var stopwatch = Stopwatch.StartNew();
+        await ProcessFilesAsync();
+        stopwatch.Stop();
+        ResltLabel.Content = $"Finished in: {stopwatch.ElapsedMilliseconds} ms";
+      }
 
-        // var stringRepository = new Repository<string>();
-        // stringRepository.AddElement("some value");
-        // string firstElement = stringRepository.GetElement(0);
+      private async Task ProcessFilesAsync() 
+      {
+        var filesPath = "D:/files/";
+        for (int i = 1; i <= 5; i++)
+        {
+          var filePath = filesPath + $"{i}.txt";
 
-        // var userRepository = new Repository<string, User>();
+          using (var render = new StreamReader(filePath, Encoding.UTF8))
+          {
+            ResultLabel.Content = $"Reading {filePath}...";
 
-        // userRepository.AddElement("Bill", new User() { Name = "Bill" });
-        // User bill = userRepository.GetElement("Bill");
+            var fileContent = await Task.Run(() => render.ReadToEnd());
 
-        int[] intArray = new []{ 1, 3, 5 };
-        Utils.Swap(ref intArray[0], ref intArray[2]);
-        Console.WriteLine(string.Join(" ", intArray));
+            //Processing file content
+          }
+        }
       }
   }
 }
