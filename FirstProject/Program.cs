@@ -27,20 +27,22 @@ namespace FirstProject
       {
         var filesPath = "D:/files/";
         var totalLength = 0;
+        List<Task> tasks = new List<Task>();
         for (int i = 1; i <= 5; i++)
         {
           var filePath = filesPath + $"{i}.txt";
-
-          using (var render = new StreamReader(filePath, Encoding.UTF8))
-          {
-            ResultLabel.Content = $"Reading {filePath}...";
-
-            var fileContent = await Task.Run(() => render.ReadToEnd());
-            totalLength += fileContent.Length;
-            //Processing file content
-          }
+          var task = Task.Run(() => 
+            {
+              using (var render = new StreamReader(filePath, Encoding.UTF8))
+              {
+                var fileContent =  render.ReadToEnd();
+                totalLength += fileContent.Length;
+              }
+            });
+          tasks.Add(task);
         }
-
+        await Task.WhenAll(tasks);
+        // await Task.WhenAny(tasks);
         return totalLength;
       }
   }
