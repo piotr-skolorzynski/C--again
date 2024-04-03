@@ -18,14 +18,15 @@ namespace FirstProject
       {
         ResultLabel.Content = "Reading started:";
         var stopwatch = Stopwatch.StartNew();
-        await ProcessFilesAsync();
+        var result = await ProcessFilesAsync();
         stopwatch.Stop();
-        ResltLabel.Content = $"Finished in: {stopwatch.ElapsedMilliseconds} ms";
+        ResltLabel.Content = $"Finished in: {stopwatch.ElapsedMilliseconds} ms. Result: {result}";
       }
 
-      private async Task ProcessFilesAsync() 
+      private async Task<int> ProcessFilesAsync() 
       {
         var filesPath = "D:/files/";
+        var totalLength = 0;
         for (int i = 1; i <= 5; i++)
         {
           var filePath = filesPath + $"{i}.txt";
@@ -35,10 +36,12 @@ namespace FirstProject
             ResultLabel.Content = $"Reading {filePath}...";
 
             var fileContent = await Task.Run(() => render.ReadToEnd());
-
+            totalLength += fileContent.Length;
             //Processing file content
           }
         }
+
+        return totalLength;
       }
   }
 }
