@@ -23,6 +23,15 @@ namespace FirstProject
         ResltLabel.Content = $"Finished in: {stopwatch.ElapsedMilliseconds} ms. Result: {result}";
       }
 
+      private async void Delay_Handler(object sender, RouterEventArgs e)
+      {
+        ResultLabel.Content = "Start";
+
+        await Task.Delay(3000);
+
+        ResultLabel.Content = "Stop";
+      }
+
       private async Task<int> ProcessFilesAsync() 
       {
         var filesPath = "D:/files/";
