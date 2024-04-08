@@ -1,58 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FirstProject
 {
   internal class Program
   {
-      static void Main(string[] args)
-      {
 
+      static async Task FooAsync() 
+      {
+        Console.WriteLine("Foo start");
+        await Task.Delay(2000);
+        throw new Exception();
       }
-
-      private async void Read_Files_Async_Handler(object sender, RoutedEventArgs e)
+      static async Task Main(string[] args)
       {
-        ResultLabel.Content = "Reading started:";
-        var stopwatch = Stopwatch.StartNew();
-        var result = await ProcessFilesAsync();
-        stopwatch.Stop();
-        ResltLabel.Content = $"Finished in: {stopwatch.ElapsedMilliseconds} ms. Result: {result}";
-      }
-
-      private async void Delay_Handler(object sender, RouterEventArgs e)
-      {
-        ResultLabel.Content = "Start";
-
-        await Task.Delay(3000);
-
-        ResultLabel.Content = "Stop";
-      }
-
-      private async Task<int> ProcessFilesAsync() 
-      {
-        var filesPath = "D:/files/";
-        var totalLength = 0;
-        List<Task> tasks = new List<Task>();
-        for (int i = 1; i <= 5; i++)
+        Console.WriteLine("Main started");
+        try
         {
-          var filePath = filesPath + $"{i}.txt";
-          var task = Task.Run(() => 
-            {
-              using (var render = new StreamReader(filePath, Encoding.UTF8))
-              {
-                var fileContent =  render.ReadToEnd();
-                totalLength += fileContent.Length;
-              }
-            });
-          tasks.Add(task);
+          await FooAsync();
         }
-        await Task.WhenAll(tasks);
-        // await Task.WhenAny(tasks);
-        return totalLength;
+        catch(Exception e)
+        {
+         Console.WriteLine("Exception");
+        }
+        Console.ReadKey();
       }
   }
 }
