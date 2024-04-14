@@ -1,4 +1,5 @@
-﻿using Reflection;
+﻿using System.Reflection;
+using Reflection;
 
 namespace FirstProject
 {
@@ -20,7 +21,18 @@ namespace FirstProject
            var propType = propValue.GetType();
            if (propType.IsPrimitive || propType == typeof(string))
            {
-            Console.WriteLine($"{property.Name}: {propValue}");
+            //po tym jak nadaliśmu customowe atrybuty w klasie Person możemy sprawdzić czy taki 
+            //istnieje jeśli tak to chcemy go wyświetlić zamiast pierowtnego
+            var displayPropertyAttribute = property.GetCustomAttribute<DisplayPropertyAttribute>();
+
+            if (displayPropertyAttribute != null)
+            {
+                Console.WriteLine($"{displayPropertyAttribute.DisplayName}: {propValue}");
+            }
+            else 
+            {
+                Console.WriteLine($"{property.Name}: {propValue}");
+            }
            }
         }
     }
