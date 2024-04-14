@@ -5,26 +5,17 @@ namespace FirstProject
 {
   internal class Program
   {
-
     static void Display(Object obj)
     {   
-        // metodę można wywołać na każdym obiekcie by poznać jego typ
         Type objType = obj.GetType();
-        //pobranie właściwości typu w postaci kolekcji
         var properties = objType.GetProperties();
         foreach (var property in properties)
         {
-           // dla każdej propki możemy pobrać jej wartość
            var propValue = property.GetValue(obj);
-           //pobieramy sobie typ danej property żeby sprawdzić czy jest referencja do innego typu
-           // jeśli tak to nie będziemy chcieli jej wyświetlać
            var propType = propValue.GetType();
            if (propType.IsPrimitive || propType == typeof(string))
            {
-            //po tym jak nadaliśmu customowe atrybuty w klasie Person możemy sprawdzić czy taki 
-            //istnieje jeśli tak to chcemy go wyświetlić zamiast pierowtnego
             var displayPropertyAttribute = property.GetCustomAttribute<DisplayPropertyAttribute>();
-
             if (displayPropertyAttribute != null)
             {
                 Console.WriteLine($"{displayPropertyAttribute.DisplayName}: {propValue}");
@@ -36,7 +27,6 @@ namespace FirstProject
            }
         }
     }
-
     static void Main(string[] args)
     {
         Address address = new Address(){
@@ -52,8 +42,25 @@ namespace FirstProject
         };
         Console.WriteLine("Person");
         Display(person);
-        Console.WriteLine("address");
-        Display(address); 
+        
+        Console.WriteLine("Insert person property to update");
+        var propertyToUpdate = Console.ReadLine();
+
+        Console.WriteLine("Insert value to update");
+        var valueToUpdate = Console.ReadLine();
+        SetValue(person, propertyToUpdate, valueToUpdate);
+        Console.WriteLine("Person:");
+        Display(person);
+    }
+    static void SetValue<T>(T obj, string propName, string value)
+    {
+        Type objType = typeof(T);
+        var propertyToUpdate = objType.GetProperty(propName);
+        if (propertyToUpdate != null)
+        {
+            //ustawianie nowej wartości na propce podanej przez użytkownika
+            propertyToUpdate.SetValue(obj, value);
+        }
     }
   }
 }

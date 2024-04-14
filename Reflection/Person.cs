@@ -8,7 +8,6 @@ public class Person
 
     //jest możliwe użycie więcej atrybutów jeśli flaga AllowMultiple jest na true
     [DisplayProperty("Last Name")]
-    [DisplayProperty("Last Name1")]
     public string LastName { get; set; }
     public Address Address { get; set; }
 }

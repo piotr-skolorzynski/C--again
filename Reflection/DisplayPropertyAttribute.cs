@@ -1,7 +1,7 @@
 ﻿namespace Reflection;
 
 //Atrybut na atrybucie umożliwiający określenie ograniczenia jego użycia
-[AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+[AttributeUsage(AttributeTargets.Property)]
 public class DisplayPropertyAttribute: Attribute
 {
     public string DisplayName { get; set; }  
